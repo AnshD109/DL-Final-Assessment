@@ -133,7 +133,7 @@ with tab1:
     pct = df_f["is_fraud"].value_counts(normalize=True) * 100
     ax.bar(["Legitimate", "Fraud"], [pct.get(0, 0), pct.get(1, 0)])
     ax.set_ylabel("Percentage (%)")
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig)
 
     st.subheader("Transaction Amount Distribution (Log)")
     # Chart 2
@@ -142,7 +142,7 @@ with tab1:
     ax.set_yscale("log")
     ax.set_xlabel("Amount")
     ax.set_ylabel("Frequency (log)")
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig)
 
 with tab2:
     st.subheader("Patterns")
@@ -152,7 +152,7 @@ with tab2:
     sns.boxplot(x="is_fraud", y="amt", data=df_f, showfliers=False, ax=ax)
     ax.set_yscale("log")
     ax.set_xticklabels(["Legitimate", "Fraud"])
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig)
 
     if "hour" in df_f.columns and df_f["hour"].notna().any():
         st.subheader("Fraud Rate by Hour")
@@ -162,7 +162,7 @@ with tab2:
         ax.plot(hourly.index, hourly.values, marker="o")
         ax.set_xlabel("Hour")
         ax.set_ylabel("Fraud rate (%)")
-        st.pyplot(fig, use_container_width=True)
+        st.pyplot(fig)
     else:
         st.info("Hour feature not available in this dataset file.")
 
@@ -176,7 +176,7 @@ with tab3:
     ax.bar(grp.index.astype(str), grp.values)
     ax.set_ylabel("Fraud rate (%)")
     plt.xticks(rotation=45, ha="right")
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig)
 
     if "age" in df_f.columns and df_f["age"].notna().sum() > 50:
         st.subheader("Fraud Rate by Age Group")
@@ -188,6 +188,6 @@ with tab3:
         ax.bar(age_rate.index.astype(str), age_rate.values)
         ax.set_ylabel("Fraud rate (%)")
         plt.xticks(rotation=45, ha="right")
-        st.pyplot(fig, use_container_width=True)
+        st.pyplot(fig)
     else:
         st.info("Age feature not available or insufficient valid values.")
