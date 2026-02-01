@@ -113,7 +113,10 @@ if fraud_f == 0:
         "Try clearing category filters or widening the amount/hour range."
     )
 
-st.markdown("---")
+st.markdown("""
+### Source Code
+- **GitHub Repo:** https://github.com/AnshD109/DL-Final-Assessment
+""")
 
 # ---------------- DASHBOARD LAYOUT (TABS) ----------------
 tab1, tab2, tab3 = st.tabs(["Overview", "Patterns", "Segments"])
