@@ -1,22 +1,50 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
+# ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="Credit Card Fraud Analysis", layout="wide")
 
 st.title("Credit Card Fraud Analysis Dashboard")
 
-# Load data
-train_df = pd.read_csv("fraudTrain.csv")
-test_df = pd.read_csv("fraudTest.csv")
-df = pd.concat([train_df, test_df], ignore_index=True)
+st.markdown("""
+This dashboard demonstrates the exploratory data analysis workflow
+for a credit card fraud detection project.
 
-df["trans_date_trans_time"] = pd.to_datetime(df["trans_date_trans_time"])
-df["dob"] = pd.to_datetime(df["dob"])
-df["age"] = (df["trans_date_trans_time"] - df["dob"]).dt.days // 365
-df["hour"] = df["trans_date_trans_time"].dt.hour
+Due to GitHub and Streamlit Cloud file size constraints,
+the full dataset is provided in the submission ZIP.
+""")
+
+# ---------------- SAFE DATA LOADING (PUT THIS HERE) ----------------
+try:
+    train_df = pd.read_csv("fraudTrain.csv")
+    test_df = pd.read_csv("fraudTest.csv")
+    df = pd.concat([train_df, test_df], ignore_index=True)
+
+    df["trans_date_trans_time"] = pd.to_datetime(df["trans_date_trans_time"])
+    df["dob"] = pd.to_datetime(df["dob"])
+    df["age"] = (df["trans_date_trans_time"] - df["dob"]).dt.days // 365
+    df["hour"] = df["trans_date_trans_time"].dt.hour
+
+except Exception:
+    st.warning("Dataset not available in Streamlit Cloud environment.")
+    st.info("Please refer to the notebook and submission ZIP for full analysis.")
+    st.stop()
+
+# ---------------- ALL CHARTS GO BELOW ----------------
+
+st.subheader("Fraud vs Legitimate Transactions (%)")
+fraud_pct = df["is_fraud"].value_counts(normalize=True) * 100
+
+fig, ax = plt.subplots()
+ax.bar(["Legitimate", "Fraud"], fraud_pct.values)
+ax.set_ylabel("Percentage (%)")
+st.pyplot(fig)
+
+# (other charts continue here)
+
 
 # Sidebar filters
 st.sidebar.header("Filters")
