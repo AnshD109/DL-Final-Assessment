@@ -114,8 +114,9 @@ if fraud_f == 0:
     )
 
 st.markdown("""
-### Source Code
+### Links
 - **GitHub Repo:** https://github.com/AnshD109/DL-Final-Assessment
+- **Live Streamlit App:** https://jwn8fbzcdjn8mjvzasrjxu.streamlit.app/
 """)
 
 # ---------------- DASHBOARD LAYOUT (TABS) ----------------
