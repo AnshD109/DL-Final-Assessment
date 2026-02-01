@@ -113,7 +113,7 @@ if fraud_f == 0:
         "Try clearing category filters or widening the amount/hour range."
     )
 
-st.divider()
+st.markdown("---")
 
 # ---------- Chart 1: Fraud vs Legit (%) ----------
 st.subheader("Fraud vs Legitimate Transactions (%)")
